@@ -28,14 +28,14 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody Map<String, String> json) throws ServletException {
-        if (json.get("username") == null || json.get("password") == null) {
-            throw new ServletException("Please fill in username and password");
+        if (json.get("email") == null || json.get("password") == null) {
+            throw new ServletException("Please fill in email and password");
         }
 
-        String userName = json.get("username");
+        String email = json.get("email");
         String password = json.get("password");
 
-        User user = userService.findByUserName(userName);
+        User user = userService.findByEmail(email);
 
         if (user == null) {
             throw new ServletException("User not found.");
@@ -47,7 +47,7 @@ public class UserController {
             throw new ServletException("Invalid login. Please check your name and password.");
         }
 
-        return Jwts.builder().setSubject(userName).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+        return Jwts.builder().setSubject(email).claim("roles", "user").setIssuedAt(new Date()).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
     }
 
 

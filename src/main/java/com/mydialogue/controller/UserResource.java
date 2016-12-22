@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/rest")
 public class UserResource {
@@ -15,14 +17,19 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/user/users")
+    @RequestMapping("/user/login/success")
     public String loginSuccess() {
         return "Login Successful!";
     }
 
-    @RequestMapping(value = "/user/userName", method = RequestMethod.POST)
-    public User findByUserName(@RequestBody String userName) {
-        return userService.findByUserName(userName);
+    @RequestMapping("/user/users")
+    public List<User> findAll() {
+        return userService.findAll();
+    }
+
+    @RequestMapping(value = "/user/email", method = RequestMethod.POST)
+    public User findByEmail(@RequestBody String email) {
+        return userService.findByEmail(email);
     }
 
     @RequestMapping(value = "/user/update", method = RequestMethod.POST)

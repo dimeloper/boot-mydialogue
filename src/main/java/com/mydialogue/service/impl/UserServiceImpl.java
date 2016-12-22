@@ -6,6 +6,8 @@ import com.mydialogue.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -16,7 +18,11 @@ public class UserServiceImpl implements UserService {
         return userDao.save(user);
     }
 
-    public User findByUserName(String userName) {
-        return userDao.findByUserName(userName);
+    public User findByEmail(String email) {
+        return userDao.findByEmail(email);
+    }
+
+    public List<User> findAll() {
+        return userDao.findAll();
     }
 }
